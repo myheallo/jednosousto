@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="cs"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Jedno sousto… konec války s jídlem</title>
+<meta name="description" content="Program intuitivního stravování. 12 setkání. Místo diet pochopení, místo kontroly důvěra.">
+
+<!-- Favicon (inline SVG, žádný extra request) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%23a77b00'/><text x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-style='italic' fill='%23fdfaf3'>j</text></svg>">
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jedno sousto · konec války s jídlem">
+<meta property="og:description" content="Program intuitivního stravování. 12 setkání. Místo diet pochopení, místo kontroly důvěra.">
+<meta property="og:image" content="images/katerina-hero.jpg">
+<meta property="og:url" content="https://jednosousto.cz">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="Jedno sousto">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jedno sousto · konec války s jídlem">
+<meta name="twitter:description" content="12 setkání · intuitivní stravování · max 10 žen ve skupině">
+<meta name="twitter:image" content="images/katerina-hero.jpg">
+
+<meta name="theme-color" content="#a77b00">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#a77b00;
+  --gold-dark:#8a6500;
+  --gold-light:#e8d9a8;
+  --gold-bg:#faf3e0;
+  --cream:#fdfaf3;
+  --ivory:#ffffff;
+  --warm:#f8f4ec;
+  --rose:#d97757;
+  --rose-dark:#b85e3f;
+  --sage:#7a8c6e;
+  --ink:#1a1a1a;
+  --ink-soft:#3a3a3a;
+  --ink-mute:#6b6b6b;
+  --star:#f5a623;
+  --line:rgba(0,0,0,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);line-height:1.6;background:var(--cream);-webkit-font-smoothing:antialiased;font-size:17px}
+img{max-width:100%;height:auto;display:block}
+svg{display:inline-block;vertical-align:middle}
+
+.wrap{max-width:960px;margin:0 auto;padding:80px 24px}
+.wrap-narrow{max-width:680px;margin:0 auto;padding:80px 24px}
+@media(max-width:600px){.wrap,.wrap-narrow{padding:56px 20px}}
+
+h1,h2,h3,h4{font-family:'Inter',sans-serif;font-weight:800;color:var(--ink);letter-spacing:-0.02em;line-height:1.15}
+h1{font-size:clamp(34px,5.5vw,58px);font-weight:900}
+h2{font-size:clamp(28px,4.2vw,42px);margin-bottom:18px;font-weight:800}
+h3{font-size:22px;margin-bottom:10px;font-weight:700}
+h4{font-size:18px;font-weight:700}
+p{margin-bottom:12px;color:var(--ink-soft);font-size:17px;line-height:1.65}
+a{color:var(--gold);text-decoration:none}
+
+.serif{font-family:'Fraunces',Georgia,serif;font-weight:500}
+
+/* DECORATIVE SVG */
+.deco-divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 20px;color:var(--gold);max-width:200px}
+.deco-divider::before,.deco-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.deco-divider svg{width:24px;height:24px;flex-shrink:0}
+
+/* COUNTDOWN BAR */
+.countdown-bar{background:linear-gradient(90deg,var(--rose) 0%,var(--rose-dark) 100%);color:#fff;text-align:center;padding:12px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:99;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.countdown-bar-label{text-transform:uppercase;letter-spacing:1.5px;font-size:11px;font-weight:800}
+.countdown-timer{display:flex;gap:6px;font-variant-numeric:tabular-nums}
+.countdown-timer .unit{background:rgba(255,255,255,.2);padding:4px 8px;border-radius:4px;font-weight:800;min-width:34px;text-align:center}
+.countdown-timer .label-small{font-size:9px;opacity:.85;display:block;text-transform:uppercase;margin-top:1px;letter-spacing:1px}
+
+/* LOGO */
+.logo-bar{background:var(--ivory);padding:18px 24px;text-align:center;border-bottom:1px solid var(--line)}
+.logo{font-family:'Fraunces',serif;font-weight:500;font-size:26px;letter-spacing:-.015em;color:var(--gold);display:inline-flex;align-items:baseline;gap:6px;line-height:1}
+.logo em{font-style:italic;font-weight:400;color:var(--gold-dark)}
+.logo::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);align-self:center;margin-right:6px}
+
+/* HERO */
+.hero{background:var(--ivory);text-align:center;padding:60px 24px 80px;position:relative;overflow:hidden}
+.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:2}
+.hero-deco-left,.hero-deco-right{position:absolute;z-index:1;opacity:.85;filter:drop-shadow(0 4px 12px rgba(167,123,0,.08))}
+.hero-deco-left{top:60px;left:3%;width:200px;height:auto;transform:rotate(-15deg)}
+.hero-deco-right{top:40px;right:3%;width:220px;height:auto;transform:rotate(20deg)}
+@media(max-width:900px){.hero-deco-left,.hero-deco-right{display:none}}
+.hero-tagline{display:inline-block;background:var(--gold-bg);color:var(--gold-dark);font-size:12px;font-weight:800;padding:8px 18px;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.hero h1{margin-bottom:18px}
+.hero h1 .highlight{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--gold)}
+.hero-sub{font-size:20px;color:var(--ink-soft);max-width:600px;margin:0 auto 28px;line-height:1.55;font-weight:500}
+.hero-rating{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:32px;font-size:14px;color:var(--ink-mute);font-weight:600}
+.stars{color:var(--star);font-size:18px;letter-spacing:1px}
+
+/* HERO PHOTO */
+.hero-photo-wrap{position:relative;width:280px;margin:0 auto 36px}
+.hero-photo{aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,var(--gold-bg),var(--warm));overflow:hidden;border:6px solid #fff;box-shadow:0 20px 60px rgba(167,123,0,.2);display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--gold);text-align:center;padding:24px;position:relative;z-index:2}
+.photo-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:5;background:#fff}
+.photo-brief{font-size:11px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.photo-desc{font-size:13px;color:var(--ink-mute);font-weight:500;line-height:1.4;font-family:'Inter',sans-serif}
+.hero-photo-ring{position:absolute;inset:-24px;border:1.5px dashed var(--gold-light);border-radius:50%;z-index:1;animation:rotate-ring 60s linear infinite}
+@keyframes rotate-ring{to{transform:rotate(360deg)}}
+.hero-photo-leaf{position:absolute;color:var(--gold);z-index:3}
+.hero-photo-leaf-1{top:-10px;right:-20px;width:60px;transform:rotate(30deg)}
+.hero-photo-leaf-2{bottom:0;left:-30px;width:50px;transform:rotate(-40deg)}
+
+/* BTN */
+.btn{display:inline-block;background:var(--gold);color:#fff;font-size:17px;font-weight:800;padding:18px 38px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .2s ease;letter-spacing:.01em;font-family:'Inter',sans-serif;box-shadow:0 4px 14px rgba(167,123,0,.3)}
+.btn:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(167,123,0,.4)}
+.btn-lg{font-size:18px;padding:20px 48px}
+.btn-rose{background:var(--rose)}
+.btn-rose:hover{background:var(--rose-dark)}
+.btn-link{color:var(--gold);font-size:15px;text-decoration:underline;font-weight:600}
+.micro{font-size:13px;color:var(--ink-mute);margin-top:14px}
+
+/* PRESS BAR */
+.press-bar{background:var(--warm);padding:32px 24px;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.press-label{font-size:11px;font-weight:700;color:var(--ink-mute);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+.press-logos{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap;max-width:760px;margin:0 auto;opacity:.6}
+.press-logo{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--ink-soft);letter-spacing:.02em;font-style:italic}
+.press-logo.bold{font-family:'Inter',sans-serif;font-weight:900;font-style:normal;letter-spacing:-.02em}
+.press-logo.upper{text-transform:uppercase;letter-spacing:3px;font-weight:700;font-size:14px;font-style:normal;font-family:'Inter',sans-serif}
+
+/* TRUST BAR */
+.trust-bar{background:var(--ivory);padding:32px 24px;text-align:center}
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:760px;margin:0 auto}
+@media(min-width:700px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
+.trust-item{font-size:12px;color:var(--ink-mute);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;letter-spacing:.3px;text-transform:uppercase}
+.trust-item svg{width:28px;height:28px;color:var(--gold);margin-bottom:6px}
+.trust-item strong{display:block;font-size:16px;color:var(--ink);font-weight:700;font-family:'Inter',sans-serif;line-height:1.2;text-transform:none;letter-spacing:-.01em;margin-bottom:2px}
+
+/* SECTION HEADER */
+.section-eyebrow{display:inline-block;background:var(--gold-bg);color:var(--gold-dark);font-size:11px;font-weight:800;padding:6px 14px;border-radius:100px;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.section-head{text-align:center;max-width:680px;margin:0 auto 48px}
+.section-head h2 .serif-em{font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--gold)}
+
+/* PROBLEM */
+.problem-section{background:var(--cream);text-align:center;position:relative;overflow:hidden}
+.problem-illustration{width:160px;margin:0 auto 32px;color:var(--rose);opacity:.7}
+.problem-list{max-width:580px;margin:32px auto 0;text-align:left}
+.problem-list li{padding:14px 0;font-size:17px;color:var(--ink-soft);padding-left:40px;position:relative;list-style:none;line-height:1.55;border-bottom:1px solid var(--line)}
+.problem-list li:last-child{border-bottom:none}
+.problem-list li::before{content:'';position:absolute;left:0;top:14px;width:26px;height:26px;background:rgba(217,119,87,.12);border-radius:50%}
+.problem-list li::after{content:'';position:absolute;left:8px;top:24px;width:10px;height:2px;background:var(--rose);border-radius:2px}
+
+/* ABOUT */
+.about-section{background:var(--warm);position:relative;overflow:hidden}
+.about-deco{position:absolute;opacity:.7;z-index:1;filter:drop-shadow(0 4px 12px rgba(167,123,0,.08))}
+.about-deco-1{top:40px;right:5%;width:170px;height:auto;transform:rotate(15deg)}
+.about-deco-2{bottom:60px;left:5%;width:120px;height:auto;transform:rotate(-25deg);color:var(--gold-light);opacity:.4}
+@media(max-width:900px){.about-deco{display:none}}
+.about-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
+@media(min-width:780px){.about-inner{grid-template-columns:340px 1fr;gap:60px}}
+.about-photo{aspect-ratio:4/5;border-radius:16px;background:linear-gradient(135deg,var(--gold-bg),var(--warm));display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--gold);text-align:center;padding:32px;border:4px solid #fff;box-shadow:0 16px 50px rgba(167,123,0,.15);position:relative;overflow:hidden}
+.about-content h2{text-align:left}
+.about-content .section-eyebrow{margin-bottom:14px}
+.about-content p{font-size:16px;line-height:1.75;margin-bottom:12px}
+.about-quote{font-family:'Fraunces',serif;font-weight:500;font-size:24px;font-style:italic;color:var(--gold);text-align:center;line-height:1.45;padding:32px 28px;margin:48px auto 0;background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.04);max-width:680px;position:relative}
+.about-quote::before{content:'';position:absolute;left:30px;top:-12px;width:30px;height:30px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.quote-mark{font-family:'Fraunces',serif;font-size:80px;color:var(--gold);line-height:0;display:inline-block;vertical-align:-20px;margin-right:4px;opacity:.3;font-style:normal}
+
+/* NL CALLOUT */
+.nl-callout{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:#fff;border:2px solid var(--gold-light);border-radius:14px;padding:28px;margin:24px auto 0;max-width:680px;box-shadow:0 8px 28px rgba(167,123,0,.08);position:relative}
+.nl-stamp{width:72px;height:72px;border:2px solid var(--gold);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gold);background:var(--gold-bg);flex-shrink:0;text-align:center}
+.nl-stamp .nl-letters{font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:.5px;line-height:1}
+.nl-stamp .nl-label{font-size:8px;font-weight:800;letter-spacing:1.2px;margin-top:3px;text-transform:uppercase;opacity:.8}
+.nl-callout-text strong.nl-eyebrow{display:block;font-size:12px;color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:6px}
+.nl-callout-text h4{font-size:18px;color:var(--ink);margin-bottom:8px;font-weight:700}
+.nl-callout-text p{margin:0;font-size:15px;color:var(--ink-soft);line-height:1.65}
+@media(max-width:600px){
+  .nl-callout{grid-template-columns:1fr;text-align:center;padding:24px 20px;gap:16px}
+  .nl-stamp{margin:0 auto}
+}
+
+/* VALUE CARDS */
+.value-section{background:var(--ivory);text-align:center}
+.value-grid{display:grid;gap:16px;max-width:760px;margin:0 auto;text-align:left;grid-template-columns:1fr}
+@media(min-width:700px){.value-grid{grid-template-columns:1fr 1fr;gap:18px}}
+.value-card{background:#fff;border:2px solid var(--line);border-radius:14px;padding:28px;transition:all .25s ease;display:flex;flex-direction:column;gap:14px;position:relative}
+.value-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(167,123,0,.08)}
+.value-icon-wrap{width:56px;height:56px;background:var(--gold-bg);color:var(--gold);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.value-icon-wrap svg{width:30px;height:30px}
+.value-card strong{display:block;font-size:18px;color:var(--ink);font-weight:700}
+.value-card p{margin:0;font-size:15px;color:var(--ink-mute);line-height:1.6}
+.value-price{font-size:14px;color:var(--ink-mute);text-decoration:line-through;font-weight:600;align-self:flex-start;background:var(--warm);padding:4px 10px;border-radius:6px}
+.value-card.bonus{background:linear-gradient(135deg,#fff,var(--gold-bg));border-color:var(--gold-light)}
+.value-card.bonus::before{content:'BONUS ZDARMA';position:absolute;top:-12px;left:24px;background:var(--rose);color:#fff;font-size:10px;font-weight:800;padding:5px 12px;border-radius:100px;letter-spacing:1.5px}
+.value-card.bonus .value-icon-wrap{background:var(--rose);color:#fff}
+
+.value-total-wrap{position:relative;margin-top:90px;max-width:760px;margin-left:auto;margin-right:auto}
+.total-herb{position:absolute;top:-85px;left:50%;transform:translateX(-50%);width:110px;height:auto;opacity:.95;z-index:5;filter:drop-shadow(0 6px 18px rgba(167,123,0,.18));pointer-events:none}
+@media(max-width:600px){.total-herb{top:-65px;width:80px}.value-total-wrap{margin-top:70px}}
+.value-total{background:var(--ink);color:#fff;padding:40px 32px;border-radius:16px;text-align:center;position:relative;overflow:hidden}
+.value-total::before{content:'';position:absolute;top:-50%;right:-10%;width:50%;height:200%;background:radial-gradient(circle,rgba(232,217,168,.15),transparent 70%)}
+.value-total > *{position:relative;z-index:2}
+.value-total .total-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;font-weight:700}
+.value-total .original{font-size:22px;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:4px;font-weight:600}
+.value-total .now{font-size:64px;font-weight:900;color:var(--gold-light);line-height:1;letter-spacing:-.02em;font-family:'Inter',sans-serif}
+.value-total .now-label{font-size:14px;color:rgba(255,255,255,.7);margin-top:10px}
+
+/* SUBSTACK PREVIEW */
+.substack-preview-section{background:var(--warm);text-align:center}
+.substack-preview{max-width:520px;margin:32px auto 0;background:#fff;border-radius:18px;box-shadow:0 16px 50px rgba(0,0,0,.08);overflow:hidden;text-align:left;position:relative}
+.substack-banner{height:130px;background:linear-gradient(135deg,var(--gold) 0%,var(--rose) 100%);position:relative;display:flex;align-items:center;justify-content:center}
+.substack-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(255,255,255,.2),transparent 50%)}
+.substack-banner-text{color:#fff;font-family:'Fraunces',serif;font-style:italic;font-size:32px;font-weight:500;letter-spacing:-.02em;z-index:2}
+.substack-body{padding:28px;position:relative}
+.substack-avatar{width:64px;height:64px;border-radius:50%;background:#fff;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.1);position:absolute;top:-32px;left:28px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:900;font-size:22px;font-family:'Fraunces',serif}
+.substack-meta{margin-top:36px;font-size:12px;color:var(--ink-mute);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+.substack-title{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--ink);margin:6px 0 12px;line-height:1.2}
+.substack-desc{font-size:14px;color:var(--ink-mute);margin-bottom:18px;line-height:1.55}
+.substack-subscribe{background:var(--ink);color:#fff;font-size:13px;font-weight:700;padding:10px 18px;border-radius:6px;display:inline-block}
+.substack-articles{border-top:1px solid var(--line);padding:18px 28px;background:var(--warm)}
+.substack-article{padding:8px 0;font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between;gap:14px}
+.substack-article strong{font-weight:600;color:var(--ink);font-size:14px}
+.substack-article-date{color:var(--ink-mute);font-size:12px;white-space:nowrap}
+.substack-tag{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.95);color:var(--gold);font-size:10px;font-weight:800;padding:5px 10px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;z-index:3}
+
+/* 12 MONTHS JOURNEY */
+.journey-section{background:var(--ivory)}
+.journey-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:780px;margin:32px auto 0}
+@media(min-width:600px){.journey-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+@media(min-width:800px){.journey-grid{grid-template-columns:repeat(6,1fr)}}
+.journey-month{background:var(--warm);border-radius:12px;padding:18px 10px;text-align:center;border:2px solid transparent;transition:all .25s;font-size:13px;color:var(--ink-soft)}
+.journey-month:hover{border-color:var(--gold-light);background:#fff;transform:translateY(-3px)}
+.journey-month .month-num{font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:var(--gold);line-height:1;display:block;margin-bottom:6px;font-style:italic}
+.journey-month .month-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-mute);display:block;margin-bottom:6px}
+.journey-month .month-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.journey-month.highlight{background:var(--gold-bg);border-color:var(--gold-light)}
+.journey-month.highlight .month-title{color:var(--gold-dark)}
+
+/* FOR-WHOM */
+.forwhom-section{background:var(--warm)}
+.forwhom-grid{display:grid;grid-template-columns:1fr;gap:20px;max-width:760px;margin:0 auto}
+@media(min-width:700px){.forwhom-grid{grid-template-columns:1fr 1fr;gap:24px}}
+.forwhom-card{background:#fff;border:2px solid var(--line);border-radius:14px;padding:32px;position:relative}
+.forwhom-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.forwhom-card.yes .forwhom-icon{background:var(--gold-bg);color:var(--gold)}
+.forwhom-card.no .forwhom-icon{background:rgba(217,119,87,.12);color:var(--rose)}
+.forwhom-icon svg{width:24px;height:24px}
+.forwhom-card.yes{border-color:var(--gold-light)}
+.forwhom-card.no{border-color:rgba(217,119,87,.25)}
+.forwhom-card h3{font-size:20px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.forwhom-card.yes h3{color:var(--gold)}
+.forwhom-card.no h3{color:var(--rose)}
+.forwhom-card ul{list-style:none;padding:0}
+.forwhom-card li{padding:8px 0 8px 32px;font-size:15px;color:var(--ink-soft);position:relative;line-height:1.55}
+.forwhom-card.yes li::before{content:'';position:absolute;left:0;top:8px;width:22px;height:22px;background:rgba(167,123,0,.12);border-radius:50%}
+.forwhom-card.yes li::after{content:'';position:absolute;left:6px;top:15px;width:6px;height:10px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg)}
+.forwhom-card.no li::before{content:'';position:absolute;left:0;top:8px;width:22px;height:22px;background:rgba(217,119,87,.12);border-radius:50%}
+.forwhom-card.no li::after{content:'';position:absolute;left:6px;top:14px;width:10px;height:2px;background:var(--rose);border-radius:2px}
+
+/* PATH */
+.path-section{background:var(--ivory);position:relative;overflow:hidden}
+.path-grid{display:grid;gap:24px;max-width:780px;margin:0 auto}
+@media(min-width:780px){.path-grid{grid-template-columns:1fr 1fr 1fr;gap:24px}}
+.path-card{background:#fff;border:2px solid var(--line);border-radius:16px;padding:32px 24px;text-align:center;transition:all .25s;position:relative}
+.path-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 40px rgba(167,123,0,.1)}
+.path-illustration{width:80px;height:80px;margin:0 auto 18px;background:var(--gold-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.path-illustration svg{width:44px;height:44px}
+.path-num{position:absolute;top:16px;right:20px;font-family:'Fraunces',serif;font-style:italic;font-size:28px;color:var(--gold);font-weight:500;opacity:.4}
+.path-card h3{font-size:18px;margin-bottom:10px}
+.path-card .month-tag{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;display:block}
+.path-card p{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.65}
+
+/* REFERENCE */
+.ref-section{background:var(--warm)}
+.ref-grid{display:grid;gap:24px;max-width:760px;margin:0 auto;grid-template-columns:1fr}
+@media(min-width:700px){.ref-grid{grid-template-columns:1fr 1fr}}
+.ref-card{background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column;gap:14px}
+.ref-header{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.ref-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold-bg),var(--warm));display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:800;font-size:18px;font-family:'Fraunces',serif;flex-shrink:0;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ref-name{font-weight:700;color:var(--ink);font-size:15px;line-height:1.2}
+.ref-name .anon{font-size:11px;color:var(--ink-mute);font-weight:500;display:block;margin-top:2px;text-transform:uppercase;letter-spacing:1px}
+.ref-card .stars{font-size:14px}
+.ref-card .ref-story{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.7}
+.ref-card .ref-result{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.7;padding:14px;background:var(--warm);border-radius:8px}
+.ref-card .ref-result strong{color:var(--gold);font-weight:700;display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.ref-card .ref-quote{font-family:'Fraunces',serif;font-size:18px;font-style:italic;color:var(--ink);line-height:1.5;padding:18px 20px;background:var(--gold-bg);border-radius:10px;border-left:3px solid var(--gold);font-weight:500;position:relative}
+
+/* PRICING */
+.pricing-section{background:linear-gradient(180deg,var(--gold-bg) 0%,var(--cream) 100%);text-align:center;padding:80px 24px;position:relative;overflow:hidden}
+.pricing-deco{position:absolute;opacity:.6;z-index:1;filter:drop-shadow(0 4px 12px rgba(167,123,0,.08))}
+.pricing-deco-1{top:40px;left:4%;width:180px;height:auto;transform:rotate(-15deg)}
+.pricing-deco-2{bottom:40px;right:4%;width:200px;height:auto;transform:rotate(20deg)}
+@media(max-width:900px){.pricing-deco{display:none}}
+.pricing-inner{max-width:560px;margin:0 auto;position:relative;z-index:2}
+.pricing-card{background:#fff;border-radius:22px;padding:48px 36px;margin:60px 0 32px;box-shadow:0 20px 60px rgba(167,123,0,.15);border:3px solid var(--gold);position:relative;overflow:visible}
+.card-herb{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:90px;height:auto;opacity:.95;z-index:3;filter:drop-shadow(0 6px 14px rgba(167,123,0,.15));pointer-events:none}
+@media(max-width:600px){.card-herb{top:-64px;width:70px}}
+.pricing-card .price-old{font-size:22px;color:var(--ink-mute);text-decoration:line-through;margin-bottom:4px;font-weight:600}
+.pricing-card .price-now{font-size:88px;font-weight:900;color:var(--gold);line-height:1;letter-spacing:-0.03em;margin:6px 0;font-family:'Inter',sans-serif}
+.pricing-card .price-label{font-size:14px;color:var(--ink-mute);letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-bottom:24px}
+.pricing-card .save-badge{display:inline-block;background:var(--rose);color:#fff;font-size:12px;font-weight:800;padding:6px 14px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.pricing-card .price-note{font-size:13px;color:var(--ink-mute);margin-top:18px;font-style:italic}
+
+/* PRACTICAL SECTION */
+.practical-section{background:var(--ivory);text-align:center}
+.practical-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:880px;margin:0 auto}
+@media(min-width:600px){.practical-grid{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media(min-width:900px){.practical-grid{grid-template-columns:repeat(4,1fr)}}
+.practical-card{background:#fff;border:2px solid var(--line);border-radius:14px;padding:32px 22px;text-align:center;transition:all .25s;display:flex;flex-direction:column;align-items:center}
+.practical-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(167,123,0,.08)}
+.practical-card.featured{background:linear-gradient(135deg,#fff,var(--gold-bg));border-color:var(--gold-light)}
+.practical-num{font-family:'Fraunces',serif;font-size:56px;font-weight:600;color:var(--gold);line-height:1;display:block;margin-bottom:12px;font-style:italic;letter-spacing:-.02em}
+.practical-num.small{font-size:30px}
+.practical-card strong{font-size:15px;color:var(--ink);font-weight:700;display:block;margin-bottom:8px;letter-spacing:.2px}
+.practical-card p{font-size:13px;color:var(--ink-mute);margin:0 0 14px;line-height:1.55;flex:1}
+.practical-card .practical-cta{display:inline-block;background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:6px;text-decoration:none;letter-spacing:.3px;transition:background .2s;margin-top:auto}
+.practical-card .practical-cta:hover{background:var(--gold-dark)}
+
+/* GUARANTEE */
+.guarantee{background:#fff;border:2px solid var(--gold-light);border-radius:14px;padding:36px;text-align:center;max-width:560px;margin:40px auto 0;display:flex;flex-direction:column;align-items:center;gap:16px}
+.guarantee-shield{width:90px;height:100px;display:flex;align-items:center;justify-content:center}
+.guarantee h3{font-size:20px;margin:0}
+.guarantee p{font-size:15px;color:var(--ink-soft);margin:0;line-height:1.6;max-width:420px}
+
+/* FAQ */
+.faq-section{background:var(--ivory)}
+.faq-container{max-width:680px;margin:0 auto}
+.faq-item{background:#fff;border:2px solid var(--line);border-radius:12px;margin-bottom:12px;transition:border-color .25s}
+.faq-item[open]{border-color:var(--gold)}
+.faq-item summary{font-weight:700;font-size:17px;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:22px 26px;user-select:none;gap:16px}
+.faq-item summary::after{content:'+';font-size:24px;color:var(--gold);font-weight:600;transition:transform .25s ease;flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--gold-bg);display:flex;align-items:center;justify-content:center;line-height:1}
+.faq-item[open] summary::after{transform:rotate(45deg);background:var(--gold);color:#fff}
+.faq-item p{font-size:15px;color:var(--ink-soft);padding:0 26px 24px;line-height:1.7}
+
+/* FINAL CTA */
+.final-cta{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);color:#fff;text-align:center;padding:90px 24px;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;top:-50%;right:-10%;width:50%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
+.final-cta-deco{position:absolute;opacity:.5;z-index:1;mix-blend-mode:soft-light}
+.final-cta-deco-1{top:40px;left:4%;width:150px;height:auto;transform:rotate(-20deg)}
+.final-cta-deco-2{bottom:40px;right:4%;width:170px;height:auto;transform:rotate(15deg)}
+@media(max-width:900px){.final-cta-deco{display:none}}
+.final-cta > div{position:relative;z-index:2}
+.final-cta h2{color:#fff;max-width:640px;margin:0 auto 18px}
+.final-cta .lead{font-size:18px;color:rgba(255,255,255,.92);max-width:540px;margin:0 auto 32px}
+.final-cta .btn{background:#fff;color:var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.final-cta .btn:hover{background:var(--ink);color:#fff}
+.final-cta .micro{color:rgba(255,255,255,.7)}
+.final-cta .section-eyebrow{background:rgba(255,255,255,.2);color:#fff}
+
+/* STICKY */
+.cookie-banner{position:fixed;bottom:24px;left:24px;right:24px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:14px;z-index:99;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:520px;margin:0 auto;font-size:13px;color:var(--ink-soft);line-height:1.5;animation:slide-up .4s cubic-bezier(.2,.8,.2,1) .6s both}
+@media(min-width:600px){.cookie-banner{flex-direction:row;align-items:center;gap:18px}}
+@keyframes slide-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.cookie-banner p{margin:0;font-size:13px;color:var(--ink-soft);flex:1}
+.cookie-banner a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+.cookie-accept{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .2s}
+.cookie-accept:hover{background:var(--gold-dark)}
+.cookie-banner.hidden{display:none}
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:18px;z-index:98;box-shadow:0 -4px 24px rgba(0,0,0,.1);transform:translateY(100%);transition:transform .35s ease;border-top:1px solid var(--line)}
+.sticky-cta.visible{transform:translateY(0)}
+.sticky-cta-text{color:var(--ink);font-size:14px;font-weight:700;display:none}
+.sticky-cta .btn{padding:11px 24px;font-size:14px;box-shadow:none}
+@media(min-width:700px){.sticky-cta-text{display:block}}
+
+.footer-pro{background:var(--ivory);border-top:1px solid var(--line);padding:56px 24px 24px}
+.footer-inner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--line)}
+@media(min-width:600px){.footer-inner{grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px}}
+.footer-col p.footer-brand{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--gold);letter-spacing:-.015em;margin-bottom:6px;line-height:1}
+.footer-col p.footer-brand em{font-style:italic;font-weight:400;color:var(--gold-dark)}
+.footer-col p.footer-tagline{font-size:13px;color:var(--ink-mute);margin:0;line-height:1.5}
+.footer-col .footer-label{font-size:11px;font-weight:700;color:var(--ink);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;margin-top:0}
+.footer-col a{display:block;font-size:14px;color:var(--ink-soft);text-decoration:none;padding:5px 0;transition:color .2s;line-height:1.4}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:880px;margin:0 auto;padding-top:24px;display:flex;flex-direction:column;gap:8px;align-items:center;font-size:12px;color:var(--ink-mute);text-align:center;line-height:1.6}
+@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;text-align:left}}
+.footer-bottom p{margin:0;font-size:12px;color:var(--ink-mute)}
+.footer-bottom .footer-legal{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.footer-bottom .footer-legal a{color:var(--ink-mute);text-decoration:underline;text-underline-offset:3px}
+.footer-bottom .footer-legal a:hover{color:var(--gold)}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .hero{padding:40px 20px 60px}
+  .hero-photo-wrap{width:240px}
+  .countdown-bar{padding:10px 16px;font-size:12px;flex-direction:column;gap:8px}
+  .pricing-card{padding:36px 24px}
+  .pricing-card .price-now{font-size:68px}
+  .final-cta{padding:60px 20px}
+  .btn{padding:16px 28px;font-size:15px;width:100%;text-align:center;display:block}
+  .btn-lg{font-size:16px;padding:18px 32px}
+  .ref-card,.forwhom-card,.path-card,.value-card{padding:24px}
+  .substack-preview{margin:24px auto 0}
+  .about-photo{aspect-ratio:1;max-width:280px;margin:0 auto}
+}
+</style></head><body>
+
+<!-- SVG SYMBOLS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- WHEAT BRANCH -->
+    <symbol id="i-wheat" viewBox="0 0 60 100">
+      <line x1="30" y1="98" x2="30" y2="22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <g stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round">
+        <path d="M30 28 Q22 24 18 30"/><path d="M30 28 Q38 24 42 30"/>
+        <path d="M30 40 Q22 36 18 42"/><path d="M30 40 Q38 36 42 42"/>
+        <path d="M30 52 Q22 48 18 54"/><path d="M30 52 Q38 48 42 54"/>
+        <path d="M30 64 Q22 60 18 66"/><path d="M30 64 Q38 60 42 66"/>
+        <path d="M30 76 Q22 72 18 78"/><path d="M30 76 Q38 72 42 78"/>
+        <path d="M30 22 Q26 16 24 12"/><path d="M30 22 Q34 16 36 12"/><path d="M30 22 L30 10"/>
+      </g>
+    </symbol>
+    <!-- OLIVE BRANCH -->
+    <symbol id="i-olive" viewBox="0 0 100 60">
+      <path d="M5 30 Q50 28 95 30" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <g fill="currentColor" opacity=".7">
+        <ellipse cx="22" cy="22" rx="6" ry="3.5" transform="rotate(-30 22 22)"/>
+        <ellipse cx="22" cy="38" rx="6" ry="3.5" transform="rotate(30 22 38)"/>
+        <ellipse cx="42" cy="20" rx="6" ry="3.5" transform="rotate(-30 42 20)"/>
+        <ellipse cx="42" cy="40" rx="6" ry="3.5" transform="rotate(30 42 40)"/>
+        <ellipse cx="62" cy="22" rx="6" ry="3.5" transform="rotate(-30 62 22)"/>
+        <ellipse cx="62" cy="38" rx="6" ry="3.5" transform="rotate(30 62 38)"/>
+        <ellipse cx="82" cy="24" rx="6" ry="3.5" transform="rotate(-30 82 24)"/>
+        <ellipse cx="82" cy="36" rx="6" ry="3.5" transform="rotate(30 82 36)"/>
+      </g>
+    </symbol>
+    <!-- BOWL -->
+    <symbol id="i-bowl" viewBox="0 0 60 60">
+      <path d="M8 26 Q8 46 30 46 Q52 46 52 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <line x1="6" y1="26" x2="54" y2="26" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M22 20 Q26 14 30 16 Q34 14 38 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".5"/>
+    </symbol>
+    <!-- SPOON -->
+    <symbol id="i-spoon" viewBox="0 0 60 60">
+      <ellipse cx="30" cy="18" rx="10" ry="14" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <line x1="30" y1="32" x2="30" y2="54" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <!-- HEART -->
+    <symbol id="i-heart" viewBox="0 0 60 60">
+      <path d="M30 50 C30 50 12 38 12 24 C12 16 18 12 24 12 C28 12 30 14 30 18 C30 14 32 12 36 12 C42 12 48 16 48 24 C48 38 30 50 30 50 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <!-- CALENDAR -->
+    <symbol id="i-calendar" viewBox="0 0 60 60">
+      <rect x="10" y="14" width="40" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <line x1="10" y1="24" x2="50" y2="24" stroke="currentColor" stroke-width="1.8"/>
+      <line x1="20" y1="8" x2="20" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="40" y1="8" x2="40" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="30" cy="36" r="3" fill="currentColor"/>
+    </symbol>
+    <!-- PEOPLE -->
+    <symbol id="i-people" viewBox="0 0 60 60">
+      <circle cx="20" cy="22" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="40" cy="22" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M10 46 Q10 34 20 34 Q30 34 30 46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M30 46 Q30 34 40 34 Q50 34 50 46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <!-- LIGHTBULB -->
+    <symbol id="i-bulb" viewBox="0 0 60 60">
+      <path d="M30 10 C22 10 16 16 16 24 C16 30 20 34 22 38 L22 42 L38 42 L38 38 C40 34 44 30 44 24 C44 16 38 10 30 10 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <line x1="22" y1="46" x2="38" y2="46" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="24" y1="50" x2="36" y2="50" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <!-- PLAY -->
+    <symbol id="i-play" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="20" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M26 22 L40 30 L26 38 Z" fill="currentColor"/>
+    </symbol>
+    <!-- SUBSTACK S -->
+    <symbol id="i-substack" viewBox="0 0 60 60">
+      <rect x="14" y="14" width="32" height="4" fill="currentColor"/>
+      <rect x="14" y="24" width="32" height="4" fill="currentColor"/>
+      <path d="M14 34 L46 34 L46 50 L30 42 L14 50 Z" fill="currentColor"/>
+    </symbol>
+    <!-- SUN -->
+    <symbol id="i-sun" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="30" y1="6" x2="30" y2="12"/><line x1="30" y1="48" x2="30" y2="54"/>
+        <line x1="6" y1="30" x2="12" y2="30"/><line x1="48" y1="30" x2="54" y2="30"/>
+        <line x1="13" y1="13" x2="17" y2="17"/><line x1="43" y1="43" x2="47" y2="47"/>
+        <line x1="13" y1="47" x2="17" y2="43"/><line x1="43" y1="17" x2="47" y2="13"/>
+      </g>
+    </symbol>
+    <!-- SEED/SPROUT -->
+    <symbol id="i-seed" viewBox="0 0 60 60">
+      <ellipse cx="30" cy="42" rx="10" ry="6" fill="currentColor" opacity=".2"/>
+      <path d="M30 42 Q30 30 30 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <path d="M30 32 Q22 26 22 20 Q22 18 24 18 Q30 18 30 28" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity=".15" stroke-linejoin="round"/>
+    </symbol>
+    <!-- PLANT GROWING -->
+    <symbol id="i-plant" viewBox="0 0 60 60">
+      <ellipse cx="30" cy="48" rx="14" ry="4" fill="currentColor" opacity=".15"/>
+      <line x1="30" y1="48" x2="30" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M30 30 Q18 28 16 18 Q14 16 18 16 Q28 18 30 28" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M30 22 Q42 20 44 12 Q46 10 42 10 Q32 12 30 20" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <!-- TREE -->
+    <symbol id="i-tree" viewBox="0 0 60 60">
+      <ellipse cx="30" cy="52" rx="16" ry="3" fill="currentColor" opacity=".15"/>
+      <line x1="30" y1="52" x2="30" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="30" cy="22" r="14" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M22 22 Q26 18 30 22 Q34 18 38 22" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".5"/>
+    </symbol>
+    <!-- CROSSED-OUT DIET (broken scale) -->
+    <symbol id="i-broken-scale" viewBox="0 0 100 100">
+      <rect x="20" y="50" width="60" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="50" cy="65" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+      <line x1="50" y1="60" x2="50" y2="58" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="14" y1="14" x2="86" y2="86" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- COUNTDOWN BAR -->
+<div class="countdown-bar">
+  <span class="countdown-bar-label">✦ Léto bez výčitek · start 1. července 2026 · pilotní cena 1 490 Kč jen do 30. června</span>
+  <div class="countdown-timer" id="countdown">
+    <span class="unit"><span id="cd-days">07</span><span class="label-small">Dny</span></span>
+    <span class="unit"><span id="cd-hours">14</span><span class="label-small">Hod</span></span>
+    <span class="unit"><span id="cd-mins">23</span><span class="label-small">Min</span></span>
+    <span class="unit"><span id="cd-secs">42</span><span class="label-small">Sek</span></span>
+  </div>
+  <span style="font-weight:700">… 1. český běh</span>
+</div>
+
+<!-- LOGO BAR -->
+<div class="logo-bar">
+  <span class="logo">Jedno <em>sousto</em></span>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>Tato stránka používá nezbytné cookies pro správné fungování. <a href="https://www.myheallo.online/ochrana-osobnich-udaju/" target="_blank" rel="noopener">Více informací</a></p>
+  <button class="cookie-accept" onclick="acceptCookies()">Rozumím</button>
+</div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyBar">
+  <span class="sticky-cta-text">Jedno sousto za 1 490 Kč · jen 10 míst</span>
+  <a href="https://form.fapi.cz/?id=381a0789-8c6e-4882-97f4-3eb1a10a58ec" class="btn">Chci si rezervovat →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tagline">Léto bez výčitek · start 1. července 2026</div>
+    <h1>Konec války s jídlem. <span class="highlight">Po 12 setkáních.</span></h1>
+    <p class="hero-sub">Jídlo bude zase jen jídlo. A ty konečně pustíš kontrolu, která ti nic nedává. Stačí jedno setkání měsíčně… bez diet, bez plánů, bez boje s vůlí.</p>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring"></div>
+      <svg class="hero-photo-leaf hero-photo-leaf-1" viewBox="0 0 100 60"><use href="#i-olive"/></svg>
+      <svg class="hero-photo-leaf hero-photo-leaf-2" viewBox="0 0 100 60"><use href="#i-olive"/></svg>
+      <div class="hero-photo">
+        <img src="images/katerina-hero.jpg" alt="Kateřina" class="photo-img" onerror="this.style.display='none'">
+        <span class="photo-brief">📸 Sem patří fotka</span>
+        <span class="photo-desc">Portrét Kateřiny<br>(úsměv, přirozené světlo,<br>krémové/zlaté tóny)</span>
+      </div>
+    </div>
+    <a href="https://form.fapi.cz/?id=381a0789-8c6e-4882-97f4-3eb1a10a58ec" class="btn btn-lg">Chci si rezervovat místo →</a>
+    <p class="micro">✓ Start 1. července 2026 · ✓ Pilotní cena 1 490 Kč do 30. června · ✓ Garance vrácení peněz</p>
+  </div>
+</section>
+
+<!-- PRESS BAR… skryto. Pokud chceš mít sekci "Psali o mně", odstraň komentáře níže
+     a vyměň texty za skutečné názvy médií nebo <img src="images/logos/jmeno.svg"> tagy.
+<div class="press-bar">
+  <p class="press-label">— Psali o mně —</p>
+  <div class="press-logos">
+    <span class="press-logo">Název 1</span>
+    <span class="press-logo bold">Název 2</span>
+    <span class="press-logo">Název 3</span>
+  </div>
+</div>
+-->
+
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <svg viewBox="0 0 60 60"><use href="#i-heart"/></svg>
+      <strong>Evelyn Tribole</strong>
+      Přímé vedení
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 60 60"><use href="#i-bulb"/></svg>
+      <strong>Dr. Gabor Maté</strong>
+      Vzdělávání
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 60 60"><use href="#i-calendar"/></svg>
+      <strong>12 setkání</strong>
+      Živě · max 10 žen
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 60 60"><use href="#i-bowl"/></svg>
+      <strong>100% garance</strong>
+      Vrácení peněz
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <span class="section-eyebrow">Možná to znáš</span>
+      <h2>Jsi tak unavená<br>z toho <span class="serif-em">boje</span>, viď?</h2>
+      <p style="font-size:18px;margin-top:14px">Každé ráno seznam toho, co musíš a nesmíš. Každý večer výčitky. A pořád dokola ten stejný kruh.</p>
+    </div>
+    <ul class="problem-list">
+      <li>Myslíš na jídlo každých deset minut, i když nechceš.</li>
+      <li>Jídlo si pořád zakazuješ… a pak se přejíš.</li>
+      <li>Cítíš se provinile po každém kousku „zakázaného".</li>
+      <li>Zkusila jsi všechno: diety, plány, vůli. A vždycky to selhalo.</li>
+      <li>Bojíš se, že když si dovolíš jíst všechno, přestaneš se ovládat úplně.</li>
+      <li>Stydíš se, že to nezvládáš… i když venku „vypadáš v pohodě".</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="wrap" style="max-width:720px">
+    <div class="section-head" style="text-align:left;margin-bottom:36px">
+      <span class="section-eyebrow">Kdo jsem</span>
+      <h2 style="text-align:left">Proč ti rozumím,<br>když nikdo <span class="serif-em">jiný</span> ne</h2>
+    </div>
+    <div class="about-content" style="max-width:none">
+      <p>Ahoj, jsem <strong>Kateřina</strong>. A vím, co je to boj s jídlem. Tolikrát jsem si řekla, že začnu znovu, že už bych to ani nedokázala spočítat.</p>
+      <p>Stála jsem před tím odpadkovým košem a dívala se na něj. V hlavě mi běželo, že jsem přece neklesla tak hluboko, abych ho otevřela a strčila ruku dovnitř. Strašně jsem se styděla.</p>
+      <p>Až jsem si jednoho dne řekla, že už to stačilo. Že si zasloužím život bez boje s jídlem. A proto jsem tu… abych ti ukázala, že to jde jinak.</p>
+      <p>Tento přístup jsem si <strong>přivezla z výcviku v zahraničí</strong>. Viděla jsem, jak funguje s ženami z různých zemí… a s jakou úlevou ho přijímají. To mě utvrdilo v tom, že to chci přinést <strong>i sem, do češtiny</strong>.</p>
+      <p>Vytvořila jsem <strong>Jedno sousto</strong>… přístup, který propojuje somatickou práci, <strong>psychoterapeutický výcvik v přístupu Virginie Satirové</strong> a výživové vzdělání. Aktivně se <strong>vzdělávám u Dr. Gabora Maté</strong> a jsem <strong>přímo vedená Evelyn Tribole</strong>… autorkou knihy <em>Intuitive Eating</em> a tvůrkyní metody, kterou ve světě používají tisíce profesionálů. Nepracuju s jídlem jako s problémem. Pracuju s tělem jako se zdrojem informací, který se učíš poslouchat.</p>
+    </div>
+    <div class="deco-divider" style="margin:48px auto 32px"><svg viewBox="0 0 100 60"><use href="#i-olive"/></svg></div>
+    <div class="about-quote" style="margin:0">
+      <span class="quote-mark">"</span>Není to o tom, abys měla lepší plán. Je to o tom, abys už žádný plán nepotřebovala.
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STACK -->
+<section class="value-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="deco-divider"><svg viewBox="0 0 100 60"><use href="#i-olive"/></svg></div>
+      <span class="section-eyebrow">Co všechno dostaneš</span>
+      <h2>Místo boje <span class="serif-em">porozumění.</span><br>Místo kontroly <span class="serif-em">důvěra.</span></h2>
+      <p style="font-size:17px;margin-top:14px;max-width:520px;margin-left:auto;margin-right:auto">Tohle není další dieta. Je to jiný přístup… pochopení, laskavost a podpora.</p>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-calendar"/></svg></div>
+        <strong>12 živých online setkání</strong>
+        <p>Každý měsíc se potkáme online. Živě, v bezpečí. Pravidelná podpora a pocit, že v tom nejsi sama.</p>
+        <span class="value-price">6 000 Kč</span>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-people"/></svg></div>
+        <strong>Komunita & platforma · celých 12 měsíců</strong>
+        <p>Stálé místo, kde můžeme komunikovat mezi setkáními… sdílet, ptát se, podporovat se. Žádné čekání na další pondělí, ale kontinuální podpora celý rok. <strong>Tohle je srdce celého programu.</strong></p>
+        <span class="value-price">1 800 Kč</span>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-bulb"/></svg></div>
+        <strong>Krátké úvody před každým setkáním</strong>
+        <p>Vysvětlím ti, proč tělo reaguje, jak reaguje. Získáš pochopení místo výčitek.</p>
+        <span class="value-price">v ceně</span>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-heart"/></svg></div>
+        <strong>Bezpečný skupinový prostor · max 10 žen</strong>
+        <p>Skupina je záměrně malá. Aby každá z vás měla skutečný prostor a bezpečí. <strong>Tohle nejde udělat ve velkém davu</strong> — práce s emocemi a tělem potřebuje intimitu.</p>
+        <span class="value-price">v ceně</span>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-play"/></svg></div>
+        <strong>Záznam každého setkání na 30 dní</strong>
+        <p>Pro případ, že nemůžeš přijít živě. Jistota, že o nic nepřijdeš.</p>
+        <span class="value-price">1 200 Kč</span>
+      </div>
+
+      <div class="value-card bonus">
+        <div class="value-icon-wrap"><svg viewBox="0 0 60 60"><use href="#i-substack"/></svg></div>
+        <strong>1 měsíc Substacku zdarma</strong>
+        <p>Vyzkoušej můj placený Substack na měsíc zdarma… týdenní úvahy o jídle, těle a klidu.</p>
+        <span class="value-price">149 Kč</span>
+      </div>
+    </div>
+
+    <div class="value-total-wrap">
+      <img src="images/decorations/levander-1.png" alt="" class="total-herb">
+      <div class="value-total">
+        <p class="total-label">1. český běh · pilotní cena</p>
+        <p class="original">Pro další běhy: 1 990 Kč</p>
+        <p class="now">1 490 Kč</p>
+        <p class="now-label">Pouze 10 míst · pro skutečný prostor pro každou</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 12 MONTHS JOURNEY -->
+<section class="journey-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="deco-divider"><svg viewBox="0 0 60 60"><use href="#i-bowl"/></svg></div>
+      <span class="section-eyebrow">12 měsíců, 12 témat</span>
+      <h2>Tvoje <span class="serif-em">cesta</span> měsíc po měsíci</h2>
+      <p style="font-size:17px;margin-top:14px">Každý měsíc jedno nové téma. Postupně, beze spěchu, krok za krokem.</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-month highlight">
+        <span class="month-num">01</span>
+        <span class="month-label">Červenec 2026</span>
+        <span class="month-title">Vstup do bezpečí</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">02</span>
+        <span class="month-label">Srpen</span>
+        <span class="month-title">Tělo jako zdroj</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">03</span>
+        <span class="month-label">Září</span>
+        <span class="month-title">Hlad a sytost</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">04</span>
+        <span class="month-label">Říjen</span>
+        <span class="month-title">Emoce a jídlo</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">05</span>
+        <span class="month-label">Listopad</span>
+        <span class="month-title">Konec diet</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">06</span>
+        <span class="month-label">Prosinec</span>
+        <span class="month-title">Pravidla pryč</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">07</span>
+        <span class="month-label">Leden</span>
+        <span class="month-title">Tělo a obraz</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">08</span>
+        <span class="month-label">Únor</span>
+        <span class="month-title">Studem a vinou</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">09</span>
+        <span class="month-label">Březen</span>
+        <span class="month-title">Sebepřijetí</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">10</span>
+        <span class="month-label">Duben</span>
+        <span class="month-title">Volnost u stolu</span>
+      </div>
+      <div class="journey-month">
+        <span class="month-num">11</span>
+        <span class="month-label">Květen</span>
+        <span class="month-title">Integrace</span>
+      </div>
+      <div class="journey-month highlight">
+        <span class="month-num">12</span>
+        <span class="month-label">Červen 2027</span>
+        <span class="month-title">Jídlo je jídlo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR-WHOM -->
+<section class="forwhom-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Než se rozhodneš</span>
+      <h2>Pro koho je to…<br>a pro koho <span class="serif-em">ne</span></h2>
+    </div>
+    <div class="forwhom-grid">
+      <div class="forwhom-card yes">
+        <div class="forwhom-icon"><svg viewBox="0 0 60 60"><use href="#i-heart"/></svg></div>
+        <h3>Je to pro tebe, pokud…</h3>
+        <ul>
+          <li>Máš za sebou roky diet a víš, že problém není vůle.</li>
+          <li>Jsi unavená z bojování a jsi připravená zkusit něco jiného.</li>
+          <li>Chceš přestat myslet na jídlo každých deset minut.</li>
+          <li>Přeješ si vzbudit se ráno bez výčitek a vnímat hlad přirozeně.</li>
+          <li>Chceš obléknout si cokoliv, co se ti líbí.</li>
+        </ul>
+      </div>
+      <div class="forwhom-card no">
+        <div class="forwhom-icon"><svg viewBox="0 0 60 60"><use href="#i-broken-scale"/></svg></div>
+        <h3>Není to pro tebe, pokud…</h3>
+        <ul>
+          <li>Hledáš jen další jídelníček nebo plán co jíst.</li>
+          <li>Léčíš se z poruchy příjmu potravy… individuální terapie je vhodnější.</li>
+          <li>Nejsi otevřená pracovat s tělem i s emocemi.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH -->
+<section class="path-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="deco-divider"><svg viewBox="0 0 60 60"><use href="#i-seed"/></svg></div>
+      <span class="section-eyebrow">Tvá cesta</span>
+      <h2>Válka s jídlem končí…<br>po <span class="serif-em">jednom soustu</span></h2>
+    </div>
+    <div class="path-grid">
+      <div class="path-card">
+        <span class="path-num">01</span>
+        <div class="path-illustration"><svg viewBox="0 0 60 60"><use href="#i-seed"/></svg></div>
+        <span class="month-tag">Den 1… Začátek</span>
+        <h3>Vstup do bezpečí</h3>
+        <p>Hned po vstupu se přidáš do komunity. První setkání je o seznámení a vytvoření bezpečí. Nic neděláš… jen posloucháš. Pocítíš úlevu, že nejsi sama.</p>
+      </div>
+      <div class="path-card">
+        <span class="path-num">02</span>
+        <div class="path-illustration"><svg viewBox="0 0 60 60"><use href="#i-plant"/></svg></div>
+        <span class="month-tag">Uprostřed cesty</span>
+        <h3>Posloucháš své tělo</h3>
+        <p>Postupně se učíš porozumět tělu. Proč máš chutě? Jak rozeznat skutečný hlad od emočního? Malé, postupné změny, které dávají smysl.</p>
+      </div>
+      <div class="path-card">
+        <span class="path-num">03</span>
+        <div class="path-illustration"><svg viewBox="0 0 60 60"><use href="#i-tree"/></svg></div>
+        <span class="month-tag">Po 12 setkáních</span>
+        <h3>Jídlo je zase jen jídlo</h3>
+        <p>Na konci cesty už nepřemýšlíš o tom, co jíst. Nasloucháš tělu, respektuješ ho. Jídlo přestane být zdrojem viny. Jíš intuitivně… s lehkostí, bez plánů.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRACTICAL INFO -->
+<section class="practical-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Praktické informace</span>
+      <h2>Co tě čeká… <span class="serif-em">a kdy</span></h2>
+    </div>
+
+    <div class="practical-grid">
+      <div class="practical-card featured">
+        <span class="practical-num small">25. 6.</span>
+        <strong>Ochutnávka zdarma</strong>
+        <p>Online setkání, kde se potkáme a osaháš si přístup. Bez závazku.</p>
+        <a href="https://spolu.jednosousto.com" target="_blank" rel="noopener" class="practical-cta">Přihlásit se →</a>
+      </div>
+
+      <div class="practical-card">
+        <span class="practical-num small">07/26</span>
+        <strong>Start programu</strong>
+        <p>1. setkání v červenci 2026. Společný start celé skupiny — vstup do bezpečí.</p>
+      </div>
+
+      <div class="practical-card">
+        <span class="practical-num">10</span>
+        <strong>žen ve skupině</strong>
+        <p>Záměrně malý počet. Pro skutečný prostor a bezpečí pro každou z vás.</p>
+      </div>
+
+      <div class="practical-card">
+        <span class="practical-num small">🗳️</span>
+        <strong>Flexibilní termíny</strong>
+        <p>Termín každého měsíčního setkání volíme společně. Aby to sedělo všem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="cena">
+  <div class="pricing-inner">
+    <span class="section-eyebrow">Otevřený zápis</span>
+    <h2>Začni dnes za <span class="serif-em">zlomek</span> ceny</h2>
+    <p style="font-size:17px;margin-top:12px">12 setkání. Komunita celý rok. Klid v hlavě.</p>
+
+    <div class="pricing-card">
+      <img src="images/decorations/camomille-1.png" alt="" class="card-herb">
+      <span class="save-badge">1. český běh · jen 10 míst</span>
+      <p class="price-old">Pro další běhy: 1 990 Kč</p>
+      <p class="price-now">1 490 Kč</p>
+      <p class="price-label">jednorázově · 12 setkání + komunita</p>
+      <a href="https://form.fapi.cz/?id=381a0789-8c6e-4882-97f4-3eb1a10a58ec" class="btn btn-lg btn-rose" style="width:100%">Beru si jedno z 10 míst za 1 490 Kč →</a>
+      <p class="price-note">Start 1. července 2026 · 12 měsíců do června 2027 · pilotní cena jen do 30. června</p>
+    </div>
+
+    <p><a href="https://instagram.com/myheallo" target="_blank" rel="noopener" class="btn-link">Mám otázky, napiš mi na Instagramu →</a></p>
+
+    <div class="guarantee">
+      <div class="guarantee-shield">
+        <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 4 L72 16 L72 46 Q72 70 40 86 Q8 70 8 46 L8 16 Z" fill="#a77b00" stroke="#8a6500" stroke-width="2"/>
+          <text x="40" y="50" text-anchor="middle" font-family="Inter" font-weight="900" font-size="22" fill="#fff">100%</text>
+          <text x="40" y="66" text-anchor="middle" font-family="Inter" font-weight="700" font-size="9" fill="#fff" letter-spacing="1">GARANCE</text>
+        </svg>
+      </div>
+      <h3>Nulové riziko. Zkusíš a rozhodneš se.</h3>
+      <p>Pokud po prvním setkání pocítíš, že to pro tebe není to pravé, vrátím ti celou částku. Bez otázek. Věřím tomu, co dělám.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <span class="section-eyebrow">Možná tě napadá</span>
+      <h2>Máš <span class="serif-em">otázky</span>? Rozumím ti.</h2>
+    </div>
+    <div class="faq-container">
+      <details class="faq-item">
+        <summary>Opravdu to funguje? Už jsem zkusila tolik věcí…</summary>
+        <p>Rozumím tvé skepsi. Ale Jedno sousto je jiné… nejde o další dietu, ale o hlubokou práci s tělem a myslí. Místo boje se učíš naslouchat. Dávám ti ucelený přístup, který propojuje somatickou práci, psychoterapeutický výcvik (Virginia Satir), vzdělávání u Dr. Gabora Maté a přímé vedení od Evelyn Tribole. Funguje to, ale vyžaduje to tvou otevřenost ke změně.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Jaké máš vzdělání? Jsi psychoterapeut?</summary>
+        <p>Jsem <strong>psychoterapeut ve výcviku</strong> v přístupu <strong>Virginie Satirové</strong>… jedné z nejvýznamnějších postav rodinné a transformační terapie 20. století. Souběžně se <strong>vzdělávám přímo u Dr. Gabora Maté</strong> a jsem <strong>přímo vedená Evelyn Tribole</strong> — autorkou knihy <em>Intuitive Eating</em>. Mám také výživové vzdělání a dlouholetou vlastní zkušenost s tématem, o kterém mluvím. „Ve výcviku" je v Česku respektovaný status… psychoterapeutický výcvik trvá 4–7 let formálního studia a praxe pod supervizí.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Co když se nebudu umět ovládat a začnu jíst všechno?</summary>
+        <p>Tenhle strach je úplně přirozený. Ale paradoxně… když se snažíš ovládat jídlo, často to vede k většímu přejídání. V Jednom soustu se učíme důvěřovat tělu a jeho signálům. Postupně poznáš, že když jídlo není zakázané, ztrácí na své síle.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Nemám moc času… zvládnu to při práci a rodině?</summary>
+        <p>Čas je vzácný. Proto je program nastaven tak, že se potkáváme jen jednou měsíčně, živě online. Každé setkání je intenzivní, ale zvládnutelné. Navíc máš k dispozici záznamy, takže o nic nepřijdeš.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Co je v ceně 1 490 Kč konkrétně?</summary>
+        <p>V balíčku je 12 živých online setkání, stálá komunita a platforma pro vzájemnou komunikaci celých 12 měsíců (srdce celého programu), záznamy 30 dní po každém setkání, krátké úvody před každým setkáním. Jako malý bonus dostaneš 1 měsíc Substacku zdarma. Celková hodnota přesahuje 9 100 Kč.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Cena je výhodná, ale pořád váhám. Co když to nevyužiju?</summary>
+        <p>Investovat do sebe je vždy velký krok. Ale podívej se na to z jiné strany… co tě stojí ten neustálý boj s jídlem? Navíc máš mou garanci: pokud po prvním setkání pocítíš, že to není pro tebe, vrátím ti celou částku. Bez otázek.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div style="max-width:680px;margin:0 auto">
+    <span class="section-eyebrow">Tvé rozhodnutí</span>
+    <h2>Nenech válku s jídlem<br>vyhrát ani <span class="serif-em">další den</span></h2>
+    <p class="lead">Už žádné diety. Už žádný boj. Jen klid a plná svoboda… krok za krokem, jedno sousto po druhém.</p>
+    <a href="https://form.fapi.cz/?id=381a0789-8c6e-4882-97f4-3eb1a10a58ec" class="btn btn-lg">Chci přestat bojovat · 1 490 Kč →</a>
+    <p class="micro">Garance vrácení peněz · Bez závazků</p>
+  </div>
+</section>
+
+<footer class="footer-pro">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">Jedno <em>sousto</em></p>
+      <p class="footer-tagline">Program intuitivního stravování pro ženy.<br>12 setkání · max 10 žen ve skupině.</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-label">Navigace</p>
+      <a href="#cena">Cena a přihlášení</a>
+      <a href="https://spolu.jednosousto.com" target="_blank" rel="noopener">Ochutnávka zdarma</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-label">Spojení</p>
+      <a href="https://instagram.com/myheallo" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://odkateriny.substack.com" target="_blank" rel="noopener">Substack</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-label">Právní</p>
+      <a href="https://www.myheallo.online/ochrana-osobnich-udaju/" target="_blank" rel="noopener">Ochrana údajů</a>
+      <a href="https://www.myheallo.online/obchodni-podminky-osvc/" target="_blank" rel="noopener">Obchodní podmínky</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Kateřina · HEALLO® · IntuEATy®</p>
+    <div class="footer-legal">
+      <a href="mailto:katerina@myheallo.info">katerina@myheallo.info</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Cookie banner
+function acceptCookies(){
+  document.getElementById('cookieBanner').classList.add('hidden');
+  try{localStorage.setItem('cookies-accepted','1')}catch(e){}
+}
+(function(){
+  try{
+    if(localStorage.getItem('cookies-accepted')==='1'){
+      document.getElementById('cookieBanner').classList.add('hidden');
+    }
+  }catch(e){}
+})();
+
+// Sticky CTA
+(function(){
+  var bar=document.getElementById('stickyBar');
+  var hero=document.querySelector('.hero');
+  if(!bar||!hero)return;
+  window.addEventListener('scroll',function(){
+    var trigger=hero.offsetTop+hero.offsetHeight-100;
+    if(window.scrollY>trigger){bar.classList.add('visible')}
+    else{bar.classList.remove('visible')}
+  },{passive:true});
+})();
+
+// Countdown… do 23. června 2026
+(function(){
+  var target=new Date('2026-06-23T23:59:59').getTime();
+  var d=document.getElementById('cd-days'),h=document.getElementById('cd-hours'),m=document.getElementById('cd-mins'),s=document.getElementById('cd-secs');
+  if(!d||!h||!m||!s)return;
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var now=Date.now();
+    var diff=target-now;
+    if(diff<=0){d.textContent='00';h.textContent='00';m.textContent='00';s.textContent='00';return}
+    var days=Math.floor(diff/86400000);
+    var hours=Math.floor((diff%86400000)/3600000);
+    var mins=Math.floor((diff%3600000)/60000);
+    var secs=Math.floor((diff%60000)/1000);
+    d.textContent=pad(days);h.textContent=pad(hours);m.textContent=pad(mins);s.textContent=pad(secs);
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+
+</body></html>
