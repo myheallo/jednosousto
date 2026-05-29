@@ -22,19 +22,25 @@
 <meta name="twitter:description" content="12 setkání · intuitivní stravování · max 10 žen ve skupině">
 <meta name="twitter:image" content="images/katerina-hero.jpg">
 
-<meta name="theme-color" content="#a77b00">
+<meta name="theme-color" content="#7a8c6e">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --gold:#a77b00;
-  --gold-dark:#8a6500;
-  --gold-light:#e8d9a8;
-  --gold-bg:#faf3e0;
-  --cream:#fdfaf3;
+  /* Primary = sage zelená (Jedno sousto signature) */
+  --gold:#7a8c6e;
+  --gold-dark:#5d6e54;
+  --gold-light:#c7d2bc;
+  --gold-bg:#eef2e7;
+  /* Brand gold (jen pro logo + footer = HEALLO® identita) */
+  --brand-gold:#a77b00;
+  --brand-gold-dark:#8a6500;
+  /* Secondary accent = brand gold (konceptuální návrat k brandu) */
+  --rose:#a77b00;
+  --rose-dark:#8a6500;
+  /* Backgrounds s lehkým sage podtónem */
+  --cream:#fafbf6;
   --ivory:#ffffff;
-  --warm:#f8f4ec;
-  --rose:#d97757;
-  --rose-dark:#b85e3f;
+  --warm:#f3f5ed;
   --sage:#7a8c6e;
   --ink:#1a1a1a;
   --ink-soft:#3a3a3a;
@@ -75,9 +81,9 @@ a{color:var(--gold);text-decoration:none}
 
 /* LOGO */
 .logo-bar{background:var(--ivory);padding:18px 24px;text-align:center;border-bottom:1px solid var(--line)}
-.logo{font-family:'Fraunces',serif;font-weight:500;font-size:26px;letter-spacing:-.015em;color:var(--gold);display:inline-flex;align-items:baseline;gap:6px;line-height:1}
-.logo em{font-style:italic;font-weight:400;color:var(--gold-dark)}
-.logo::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);align-self:center;margin-right:6px}
+.logo{font-family:'Fraunces',serif;font-weight:500;font-size:26px;letter-spacing:-.015em;color:var(--brand-gold);display:inline-flex;align-items:baseline;gap:6px;line-height:1}
+.logo em{font-style:italic;font-weight:400;color:var(--brand-gold-dark)}
+.logo::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--brand-gold);align-self:center;margin-right:6px}
 
 /* HERO */
 .hero{background:var(--ivory);text-align:center;padding:60px 24px 80px;position:relative;overflow:hidden}
@@ -372,8 +378,8 @@ a{color:var(--gold);text-decoration:none}
 .footer-pro{background:var(--ivory);border-top:1px solid var(--line);padding:56px 24px 24px}
 .footer-inner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--line)}
 @media(min-width:600px){.footer-inner{grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px}}
-.footer-col p.footer-brand{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--gold);letter-spacing:-.015em;margin-bottom:6px;line-height:1}
-.footer-col p.footer-brand em{font-style:italic;font-weight:400;color:var(--gold-dark)}
+.footer-col p.footer-brand{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--brand-gold);letter-spacing:-.015em;margin-bottom:6px;line-height:1}
+.footer-col p.footer-brand em{font-style:italic;font-weight:400;color:var(--brand-gold-dark)}
 .footer-col p.footer-tagline{font-size:13px;color:var(--ink-mute);margin:0;line-height:1.5}
 .footer-col .footer-label{font-size:11px;font-weight:700;color:var(--ink);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;margin-top:0}
 .footer-col a{display:block;font-size:14px;color:var(--ink-soft);text-decoration:none;padding:5px 0;transition:color .2s;line-height:1.4}
