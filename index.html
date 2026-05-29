@@ -23,6 +23,29 @@
 <meta name="twitter:image" content="images/katerina-hero.jpg">
 
 <meta name="theme-color" content="#7a8c6e">
+
+<!-- Flodesk universal script -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -321,6 +344,19 @@ a{color:var(--gold);text-decoration:none}
 .guarantee-shield{width:90px;height:100px;display:flex;align-items:center;justify-content:center}
 .guarantee h3{font-size:20px;margin:0}
 .guarantee p{font-size:15px;color:var(--ink-soft);margin:0;line-height:1.6;max-width:420px}
+
+/* NEWSLETTER */
+.newsletter-section{background:linear-gradient(180deg,var(--cream) 0%,var(--gold-bg) 100%);padding:90px 24px;position:relative;overflow:hidden}
+.newsletter-inner{max-width:620px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.newsletter-inner h2{margin-bottom:18px}
+.newsletter-lead{font-size:17px;color:var(--ink-soft);line-height:1.7;max-width:540px;margin:0 auto 40px}
+.newsletter-section::before{content:'';position:absolute;top:-100px;left:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(122,140,110,.12),transparent 70%);border-radius:50%;z-index:1}
+.newsletter-section::after{content:'';position:absolute;bottom:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(167,123,0,.08),transparent 70%);border-radius:50%;z-index:1}
+#fd-form-6a196070d87a9ffadce51dae{max-width:520px;margin:0 auto;background:#fff;border-radius:16px;padding:8px;box-shadow:0 16px 50px rgba(122,140,110,.15);position:relative;z-index:2}
+@media(max-width:600px){
+  .newsletter-section{padding:60px 20px}
+  .newsletter-lead{font-size:16px;margin-bottom:32px}
+}
 
 /* FAQ */
 .faq-section{background:var(--ivory)}
@@ -928,6 +964,22 @@ a{color:var(--gold);text-decoration:none}
       <h3>Nulové riziko. Zkusíš a rozhodneš se.</h3>
       <p>Pokud po prvním setkání pocítíš, že to pro tebe není to pravé, vrátím ti celou částku. Bez otázek. Věřím tomu, co dělám.</p>
     </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER · Flodesk -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <span class="section-eyebrow">Dopis z HEALLO®</span>
+    <h2>Píšu ti<br><span class="serif-em">jednou za měsíc</span>.</h2>
+    <p class="newsletter-lead">Jednou za měsíc ti přijde krátký dopis. O tom, co se v HEALLO® odehrálo, co jsem se učila a co bylo v tichu krásné. Místo, kam se vrátit… bez prodeje, bez tlaku, jen text mezi námi.</p>
+    <div id="fd-form-6a196070d87a9ffadce51dae"></div>
+    <script>
+      window.fd('form', {
+        formId: '6a196070d87a9ffadce51dae',
+        containerEl: '#fd-form-6a196070d87a9ffadce51dae'
+      });
+    </script>
   </div>
 </section>
 
