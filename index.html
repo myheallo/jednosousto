@@ -326,6 +326,19 @@ a{color:var(--gold);text-decoration:none}
 .faq-item[open] summary::after{transform:rotate(45deg);background:var(--gold);color:#fff}
 .faq-item p{font-size:15px;color:var(--ink-soft);padding:0 26px 24px;line-height:1.7}
 
+/* ALTERNATIVES */
+.alt-section{background:var(--warm);padding:80px 24px;border-top:1px solid var(--line)}
+.alt-grid{display:grid;grid-template-columns:1fr;gap:20px;max-width:980px;margin:32px auto 0}
+@media(min-width:780px){.alt-grid{grid-template-columns:repeat(3,1fr);gap:24px}}
+.alt-card{background:#fff;border:2px solid var(--line);border-radius:16px;padding:32px 28px;text-decoration:none;color:inherit;transition:all .25s;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.alt-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 40px rgba(167,123,0,.12)}
+.alt-card:hover .alt-arrow{transform:translate(4px,-4px)}
+.alt-tag{display:inline-block;background:var(--gold-bg);color:var(--gold-dark);font-size:11px;font-weight:800;padding:5px 12px;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;align-self:flex-start}
+.alt-card h3{font-size:24px;margin:0;font-family:'Fraunces',serif;font-weight:600;font-style:italic;color:var(--ink);line-height:1.2}
+.alt-card p{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.65;flex:1}
+.alt-meta{font-size:12px;color:var(--ink-mute);font-weight:700;letter-spacing:.5px;border-top:1px solid var(--line);padding-top:14px;margin-top:6px;text-transform:uppercase}
+.alt-arrow{position:absolute;top:28px;right:28px;color:var(--gold);font-size:24px;font-weight:700;transition:transform .25s ease;line-height:1}
+
 /* FINAL CTA */
 .final-cta{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);color:#fff;text-align:center;padding:90px 24px;position:relative;overflow:hidden}
 .final-cta::before{content:'';position:absolute;top:-50%;right:-10%;width:50%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
@@ -944,6 +957,43 @@ a{color:var(--gold);text-decoration:none}
         <summary>Cena je výhodná, ale pořád váhám. Co když to nevyužiju?</summary>
         <p>Investovat do sebe je vždy velký krok. Ale podívej se na to z jiné strany… co tě stojí ten neustálý boj s jídlem? Navíc máš mou garanci: pokud po prvním setkání pocítíš, že to není pro tebe, vrátím ti celou částku. Bez otázek.</p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ALTERNATIVES -->
+<section class="alt-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Pokud Jedno sousto není pro tebe</span>
+      <h2>Existují jiné <span class="serif-em">cesty</span>.</h2>
+      <p style="font-size:17px;margin-top:14px;max-width:540px;margin-left:auto;margin-right:auto">Ne každá žena potřebuje skupinový kurz. Ne každá teď. Tady jsou tři další dveře, které jsou ti otevřené.</p>
+    </div>
+
+    <div class="alt-grid">
+      <a href="https://cela.myheallo.cc" class="alt-card">
+        <span class="alt-arrow">↗</span>
+        <span class="alt-tag">1:1 individuální</span>
+        <h3>CELÁ</h3>
+        <p>Pokud chceš jen mě, beze skupiny. Tři měsíce 1:1 doprovodu, šest setkání. Pro ženu, která potřebuje hloubku víc než kohortu.</p>
+        <span class="alt-meta">3 měsíce · 1:1 · 18 000 Kč</span>
+      </a>
+
+      <a href="https://365.myheallo.cc" class="alt-card">
+        <span class="alt-arrow">↗</span>
+        <span class="alt-tag">Skupina · roční</span>
+        <h3>HEALLO® 365</h3>
+        <p>Pokud chceš dvanáct měsíců hluboké práce ve velmi malé skupině. Roční doprovod max 10 žen, somatika, polyvagální praxe. Start září 2026.</p>
+        <span class="alt-meta">12 měsíců · max 10 žen · 29 000 Kč</span>
+      </a>
+
+      <a href="https://odkateriny.substack.com" class="alt-card">
+        <span class="alt-arrow">↗</span>
+        <span class="alt-tag">Substack</span>
+        <h3>Od Kateřiny</h3>
+        <p>Pokud teď nehledáš spolupráci, jen čtení… moje texty jsou každý týden tady. Začni tichem na stránce, ne závazkem.</p>
+        <span class="alt-meta">každý týden · odkateriny.substack.com</span>
+      </a>
     </div>
   </div>
 </section>
